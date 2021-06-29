@@ -196,7 +196,7 @@ class BenchMeta {
 
     var timestamp = Date.now();
 
-    const timeelapsed = benchmarkEnd - benchmarkStart;
+    const timeelapsed = this.timestamps.benchmarkEnd - this.timestamps.benchmarkStart;
 
     return [{ 
       "metrics":[{ 
