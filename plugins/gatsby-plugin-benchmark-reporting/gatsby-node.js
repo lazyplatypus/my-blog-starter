@@ -22,7 +22,7 @@ const fs = require(`fs`);
 
 const bootstrapTime = performance.now();
 const CI_NAME = process.env.CI_NAME;
-const BENCHMARK_REPORTING_URL = process.env.BENCHMARK_REPORTING_URL === `cli` ? undefined : process.env.BENCHMARK_REPORTING_URL; // Track the last received `api` because not all events in this plugin will receive one
+const BENCHMARK_REPORTING_URL = "https://metric-api.newrelic.com/metric/v1";
 
 let lastApi; // Current benchmark state, if any. If none then create one on next lifecycle.
 
@@ -172,33 +172,72 @@ class BenchMeta {
     const gifCount = execToInt(`find public .cache  -type f -iname "*.gif" | wc -l`);
     const otherCount = execToInt(`find public .cache  -type f -iname "*.bmp" -or -iname "*.tif" -or -iname "*.webp" -or -iname "*.svg" | wc -l`);
     const benchmarkMetadata = this.getMetadata();
-    return {
-      time: this.localTime,
-      sessionId: process.gatsbyTelemetrySessionId || uuidv4(),
-      cwd: (_process$cwd = process.cwd()) !== null && _process$cwd !== void 0 ? _process$cwd : ``,
-      timestamps: this.timestamps,
-      gitHash,
-      commitTime,
-      ci: process.env.CI || false,
-      ciName: CI_NAME || `local`,
-      versions: {
-        nodejs: nodejsVersion,
-        gatsby: gatsbyVersion,
-        gatsbyCli: gatsbyCliVersion,
-        sharp: sharpVersion,
-        webpack: webpackVersion
-      },
-      counts: {
-        pages: parseInt(process.env.NUM_PAGES),
-        jpgs: jpgCount,
-        pngs: pngCount,
-        gifs: gifCount,
-        other: otherCount
-      },
-      memory,
-      publicJsSize,
-      ...benchmarkMetadata
-    };
+    return [{ 
+      "metrics":[{ 
+         "name":"jsSize", 
+         "type":"gauge", 
+         "value": publicJsSize, 
+         "timestamp": timestamp, 
+         "attributes":attributes 
+         },
+         { 
+          "name":"pngs", 
+          "type":"gauge", 
+          "value": pngCount, 
+          "timestamp": timestamp, 
+          "attributes":attributes 
+          },
+          { 
+            "name":"jpgs", 
+            "type":"gauge", 
+            "value": jpgCount, 
+            "timestamp": timestamp, 
+            "attributes":attributes 
+          },
+          { 
+            "name":"otherImages", 
+            "type":"gauge", 
+            "value": otherCount, 
+            "timestamp": timestamp, 
+            "attributes":attributes 
+          },
+          { 
+            "name":"gifs", 
+            "type":"gauge", 
+            "value": gifCount, 
+            "timestamp": timestamp, 
+            "attributes":attributes 
+          },
+          { 
+            "name":"memory-rss", 
+            "type":"gauge", 
+            "value": rss ?? 0, 
+            "timestamp": timestamp, 
+            "attributes":attributes 
+          },
+          { 
+            "name":"memory-heapTotal", 
+            "type":"gauge", 
+            "value": heapTotal ?? 0, 
+            "timestamp": timestamp, 
+            "attributes":attributes 
+          },
+          { 
+            "name":"memory-heapUsed", 
+            "type":"gauge", 
+            "value": heapUsed ?? 0, 
+            "timestamp": timestamp, 
+            "attributes":attributes 
+          },
+          { 
+            "name":"memory-external", 
+            "type":"gauge", 
+            "value": external ?? 0, 
+            "timestamp": timestamp, 
+            "attributes":attributes 
+          },
+        ] 
+    }];
   }
 
   markStart() {
@@ -250,7 +289,7 @@ class BenchMeta {
       method: `POST`,
       headers: {
         "content-type": `application/json`,
-        "x-benchmark-secret": process.env.BENCHMARK_REPORTING_SECRET
+        "Api-Key": "NRII-KkwQR2CQ81QCdfxTZOLc7G79RStiqG7R"
       },
       body: json
     }).then(res => {
