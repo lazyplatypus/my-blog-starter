@@ -182,7 +182,21 @@ class BenchMeta {
       ...benchmarkMetadata,
     }
 
+    const buildtimes = {
+      ...attributes,
+      bootstrapTime: this.timestamps.bootstrapTime,
+      instantiationTime: this.timestamps.instantiationTime, // Instantiation time of this class
+      benchmarkStart: this.timestamps.benchmarkStart, // Start of benchmark itself
+      preInit: this.timestamps.preInit, // Gatsby onPreInit life cycle
+      preBootstrap: this.timestamps.preBootstrap, // Gatsby onPreBootstrap life cycle
+      preBuild: this.timestamps.preBuild, // Gatsby onPreBuild life cycle
+      postBuild: this.timestamps.postBuild, // Gatsby onPostBuild life cycle
+      benchmarkEnd: this.timestamps.benchmarkEnd, // End of benchmark itself
+    }
+
     var timestamp = Date.now();
+
+    const timeelapsed = benchmarkEnd - benchmarkStart;
 
     return [{ 
       "metrics":[{ 
@@ -248,6 +262,13 @@ class BenchMeta {
             "timestamp": timestamp, 
             "attributes":attributes 
           },
+          { 
+            "name":"build-times", 
+            "type":"gauge", 
+            "value": timeelapsed, 
+            "timestamp": timestamp, 
+            "attributes": buildtimes 
+          }
         ] 
     }];
   }
