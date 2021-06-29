@@ -137,12 +137,6 @@ class BenchMeta {
       heapUsed,
       external
     } = process.memoryUsage();
-    const memory = {
-      rss: rss !== null && rss !== void 0 ? rss : 0,
-      heapTotal: heapTotal !== null && heapTotal !== void 0 ? heapTotal : 0,
-      heapUsed: heapUsed !== null && heapUsed !== void 0 ? heapUsed : 0,
-      external: external !== null && external !== void 0 ? external : 0
-    };
 
     for (const key in this.timestamps) {
       this.timestamps[key] = Math.floor(this.timestamps[key]);
@@ -185,6 +179,7 @@ class BenchMeta {
       gatsbyCli: gatsbyCliVersion,
       sharp: sharpVersion,
       webpack: webpackVersion,
+      ...benchmarkMetadata,
     }
 
     var timestamp = Date.now();
