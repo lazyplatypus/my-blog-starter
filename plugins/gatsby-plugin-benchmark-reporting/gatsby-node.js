@@ -211,28 +211,28 @@ class BenchMeta {
           { 
             "name":"memory-rss", 
             "type":"gauge", 
-            "value": rss ?? 0, 
+            "value": rss, 
             "timestamp": timestamp, 
             "attributes":attributes 
           },
           { 
             "name":"memory-heapTotal", 
             "type":"gauge", 
-            "value": heapTotal ?? 0, 
+            "value": heapTotal, 
             "timestamp": timestamp, 
             "attributes":attributes 
           },
           { 
             "name":"memory-heapUsed", 
             "type":"gauge", 
-            "value": heapUsed ?? 0, 
+            "value": heapUsed, 
             "timestamp": timestamp, 
             "attributes":attributes 
           },
           { 
             "name":"memory-external", 
             "type":"gauge", 
-            "value": external ?? 0, 
+            "value": external, 
             "timestamp": timestamp, 
             "attributes":attributes 
           },
