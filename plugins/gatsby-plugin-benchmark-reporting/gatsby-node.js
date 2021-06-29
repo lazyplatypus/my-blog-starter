@@ -172,6 +172,23 @@ class BenchMeta {
     const gifCount = execToInt(`find public .cache  -type f -iname "*.gif" | wc -l`);
     const otherCount = execToInt(`find public .cache  -type f -iname "*.bmp" -or -iname "*.tif" -or -iname "*.webp" -or -iname "*.svg" | wc -l`);
     const benchmarkMetadata = this.getMetadata();
+
+
+    const attributes = {
+      sessionId: process.gatsbyTelemetrySessionId || uuidv4(),
+      gitHash,
+      commitTime,
+      ci: process.env.CI || false,
+      ciName: CI_NAME || `local`,
+      nodejs: nodejsVersion,
+      gatsby: gatsbyVersion,
+      gatsbyCli: gatsbyCliVersion,
+      sharp: sharpVersion,
+      webpack: webpackVersion,
+    }
+
+    var timestamp = Date.now();
+
     return [{ 
       "metrics":[{ 
          "name":"jsSize", 
