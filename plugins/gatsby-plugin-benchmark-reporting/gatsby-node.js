@@ -173,7 +173,8 @@ class BenchMeta {
     const otherCount = execToInt(`find public .cache  -type f -iname "*.bmp" -or -iname "*.tif" -or -iname "*.webp" -or -iname "*.svg" | wc -l`);
     const benchmarkMetadata = this.getMetadata();
 
-    console.log(...benchmarkMetadata)
+    reportInfo(...benchmarkMetadata);
+
     const attributes = {
       sessionId: process.gatsbyTelemetrySessionId || uuidv4(),
       gitHash,
@@ -188,8 +189,6 @@ class BenchMeta {
     }
 
     var timestamp = Date.now();
-
-    
     return [{ 
       "metrics":[{ 
          "name":"jsSize", 
@@ -262,7 +261,7 @@ class BenchMeta {
             "attributes":attributes 
           },
         ] 
-    }]
+    }]}
 
   markStart() {
     if (this.started) {
