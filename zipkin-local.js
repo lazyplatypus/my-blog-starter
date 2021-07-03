@@ -69,7 +69,7 @@ const _processQueue = async () => {
         body: postBody,
         headers: {
           'Content-Type': 'application/json',
-          'Api-Key': NR_KEY,
+          'Api-Key': process.env.NR_KEY,
           'Data-Format': 'zipkin',
           'Data-Format-Version': 2,
         },
