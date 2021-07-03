@@ -14,7 +14,6 @@ const _zipkinJavascriptOpentracing = _interopRequireDefault(
 );
 
 const _nodeFetch = _interopRequireDefault(require('node-fetch'));
-const NR_KEY = ''
 let logger;
 let recorder;
 /**
