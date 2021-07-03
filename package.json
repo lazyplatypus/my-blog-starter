@@ -30,7 +30,10 @@
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
     "typeface-merriweather": "0.0.72",
-    "typeface-montserrat": "0.0.75"
+    "typeface-montserrat": "0.0.75",
+    "zipkin": "^0.22.0",
+    "zipkin-javascript-opentracing": "^3.0.0",
+    "zipkin-transport-http": "^0.22.0"
   },
   "devDependencies": {
     "prettier": "2.2.1"
