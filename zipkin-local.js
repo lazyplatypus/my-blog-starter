@@ -26,7 +26,7 @@ const create = () => {
     // endpoint of local docker zipkin instance
     endpoint: `https://trace-api.newrelic.com/trace/v1`,
     headers: {
-      'Api-Key': NR_KEY,
+      'Api-Key': process.env.NR_KEY,
       'Data-Format': 'zipkin',
       'Data-Format-Version': 2,
     },
