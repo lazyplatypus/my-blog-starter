@@ -26,6 +26,11 @@ const create = () => {
   logger = new _zipkinTransportHttp.HttpLogger({
     // endpoint of local docker zipkin instance
     endpoint: `https://trace-api.newrelic.com/trace/v1`,
+    headers: {
+      'Api-Key': NR_KEY,
+      'Data-Format': 'zipkin',
+      'Data-Format-Version': 2,
+    },
   });
   recorder = new _zipkin.BatchRecorder({
     logger,
