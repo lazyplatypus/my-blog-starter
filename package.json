@@ -33,7 +33,7 @@
     "typeface-montserrat": "0.0.75",
     "zipkin": "^0.22.0",
     "zipkin-javascript-opentracing": "^3.0.0",
-    "zipkin-transport-http": "^0.22.0"
+    "zipkin-transport-http": "file:./plugins/zipkin-transport-http"
   },
   "devDependencies": {
     "prettier": "2.2.1"
