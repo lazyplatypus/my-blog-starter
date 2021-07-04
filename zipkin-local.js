@@ -25,6 +25,11 @@ const create = () => {
   logger = new _zipkinTransportHttp.HttpLogger({
     // endpoint of local docker zipkin instance
     endpoint: `https://trace-api.newrelic.com/trace/v1`,
+    headers: {
+      'Api-Key': NR_KEY,
+      'Data-Format': 'zipkin',
+      'Data-Format-Version': 2,
+    },
   });
   recorder = new _zipkin.BatchRecorder({
     logger,
@@ -55,13 +60,18 @@ const create = () => {
 exports.create = create;
 
 const _processQueue = async () => {
-  console.log("HELLOOOOOOOOOOOOOOOOOOO")
   if (logger.queue.length > 0) {
-    const test = JSON.parse(logger.queue[0])
-    test.localEndpoint = {}
-    test.localEndpoint.serviceName = test.annotations[0].endpoint.serviceName
-    delete test['annotations']
-    const postBody = `[${JSON.stringify(test)}]`
+    
+    const formattedQueue = logger.queue.map((trace) => {
+        const formatTrace = JSON.parse(trace)
+        formatTrace.localEndpoint = {}
+        formatTrace.localEndpoint.serviceName = formatTrace.annotations[0].endpoint.serviceName
+        delete formatTrace['annotations']
+        return JSON.stringify(formatTrace)
+    })
+    // console.log(typeof logger.queue[0])
+    
+    const postBody = `[${formattedQueue.join(',')}]`
     try {
       const response = await (0, _nodeFetch.default)(logger.endpoint, {
         method: `POST`,
