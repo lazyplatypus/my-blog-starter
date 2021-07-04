@@ -32,9 +32,12 @@
   },
   "bundleDependencies": false,
   "dependencies": {
+    "@newrelic/winston-enricher": "^1.0.0",
     "fast-glob": "^3.2.5",
+    "newrelic": "^7.5.1",
     "node-fetch": "^2.6.1",
-    "uuid": "3.4.0"
+    "uuid": "3.4.0",
+    "winston": "^3.3.3"
   },
   "deprecated": false,
   "description": "Gatsby Benchmark Reporting",

@@ -1,4 +1,6 @@
 "use strict";
+require('newrelic');
+const newrelicFormatter = require('@newrelic/winston-enricher')
 
 var _process$env$BENCHMAR;
 
