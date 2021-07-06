@@ -7,7 +7,7 @@ exports.stop = exports.create = void 0;
 
 const _zipkin = _interopRequireDefault(require('zipkin'));
 
-const _zipkinTransportHttp = require('zipkin-transport-http');
+const _zipkinTransportHttp = require('zipkin-transport-newrelic');
 
 const _zipkinJavascriptOpentracing = _interopRequireDefault(
   require('zipkin-javascript-opentracing')
@@ -38,8 +38,8 @@ const create = () => {
   });
   // console.log(recorder)
   const tracer = new _zipkinJavascriptOpentracing.default({
-    localServiceName: `gatsby`,
-    serviceName: `gatsby`,
+    localServiceName: `gatsbyTest`,
+    serviceName: `gatsbyTest`,
     // Sample 1 out of 1 spans (100%). When tracing production
     // services, it is normal to sample 1 out of 10 requests so that
     // tracing information doesn't impact site performance. But Gatsby

@@ -26,16 +26,12 @@
     "gatsby-source-filesystem": "^3.6.0",
     "gatsby-transformer-remark": "^3.2.0",
     "gatsby-transformer-sharp": "^3.6.0",
-    "newrelic": "^7.5.1",
     "prismjs": "^1.23.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
     "typeface-merriweather": "0.0.72",
-    "typeface-montserrat": "0.0.75",
-    "zipkin": "^0.22.0",
-    "zipkin-javascript-opentracing": "^3.0.0",
-    "zipkin-transport-http": "file:./plugins/zipkin-transport-http"
+    "typeface-montserrat": "0.0.75"
   },
   "devDependencies": {
     "prettier": "2.2.1"
@@ -51,7 +47,7 @@
     "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
   },
   "scripts": {
-    "build": "gatsby build --open-tracing-config-file zipkin-local.js --graphql-tracing",
+    "build": "gatsby build --open-tracing-config-file plugins/gatsby-plugin-newrelic/zipkin-local.js --graphql-tracing",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run develop",
