@@ -5,15 +5,16 @@
  * See lib/config/default.js in the agent distribution for a more complete
  * description of configuration variables and their potential values.
  */
+var constants = require('./plugins/gatsby-plugin-newrelic/constants');
 exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['My-Blog-Starter'],
+  app_name: [constants.SITE_NAME || 'nowork'],
   /**
    * Your New Relic license key.
    */
-  license_key: process.env.NR_LICENCE,
+  license_key: constants.NR_LICENCE,
   /**
    * This setting controls distributed tracing.
    * Distributed tracing lets you see the path that a request takes through your

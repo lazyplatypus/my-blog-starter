@@ -2,6 +2,8 @@
 
 require('newrelic');
 
+const constants = require('./constants');
+
 const newrelicFormatter = require('@newrelic/winston-enricher');
 
 const NewrelicWinston = require('newrelic-winston');
@@ -45,31 +47,27 @@ console.error = function (d) {
   logger.error(d, {
     logee: 'ruairi'
   });
-};
-
-console.log = function (d) {
-  //
-  logger.log({
-    level: 'info',
-    message: d
-  });
-};
-
-console.warn = function (d) {
-  //
-  logger.log({
-    level: 'warn',
-    message: d
-  });
-};
-
-console.info = function (d) {
-  //
-  logger.log({
-    level: 'info',
-    message: d
-  });
-}; // var capcon = require('capture-console');
+}; // console.log = function (d) {
+//   //
+//   logger.log({
+//     level: 'info',
+//     message: d
+//   });
+// };
+// console.warn = function (d) {
+//   //
+//   logger.log({
+//     level: 'warn',
+//     message: d
+//   });
+// };
+// console.info = function (d) {
+//   //
+//   logger.log({
+//     level: 'info',
+//     message: d
+//   });
+// }; // var capcon = require('capture-console');
 // let output = ''
 // capcon.startCapture(process.stderr, function (stderr) {
 //   logger.error(stderr);
@@ -88,13 +86,13 @@ console.info = function (d) {
 //   // whatever is done in here has both stdout and stderr captured,
 //   // the return value is an object with 'stderr' and 'stdout' keys
 // });
+// console.log('alone or in pairs,');
+// console.warn('and over your neighbors dog?');
+// console.info('Whats great for a snack,');
+// console.error('And fits on your back?');
+// console.error('Its log, log, log');
 
 
-console.log('alone or in pairs,');
-console.warn('and over your neighbors dog?');
-console.info('Whats great for a snack,');
-console.error('And fits on your back?');
-console.error('Its log, log, log');
 const bootstrapTime = performance.now();
 const CI_NAME = process.env.CI_NAME;
 const BENCHMARK_REPORTING_URL = "https://metric-api.newrelic.com/metric/v1";
@@ -386,7 +384,7 @@ class BenchMeta {
       method: `POST`,
       headers: {
         "content-type": `application/json`,
-        "Api-Key": "NRII-KkwQR2CQ81QCdfxTZOLc7G79RStiqG7R"
+        "Api-Key": constants.NR_KEY
       },
       body: json
     }).then(res => {
