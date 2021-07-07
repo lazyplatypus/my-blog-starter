@@ -63,18 +63,22 @@ const _processQueue = async () => {
   if (logger.queue.length > 0) {
     console.log(logger.queue[0]);
     const formattedQueue = logger.queue.map((trace) => {
-        const formatTrace = JSON.parse(trace)
+      const formatTrace = JSON.parse(trace)
+      if (formatTrace.annotations[0].endpoint) {
         formatTrace.localEndpoint = {}
         formatTrace.localEndpoint.serviceName = formatTrace.annotations[0].endpoint.serviceName
-        formatTrace.gatsbySite = constants.SITE_NAME || 'site'
+        formatTrace.gatsbySite = constants ? constants.SITE_NAME : 'gatsby-site'
         if (formatTrace.binaryAnnotations) {
+          formatTrace.tags = {}
           for (let anno of formatTrace.binaryAnnotations) {
-            formatTrace[anno.key] = formatTrace[anno.value]
+            formatTrace.tags[anno.key] = anno.value
           }
+          delete formatTrace['binaryAnnotations']
         }
         delete formatTrace['annotations']
-        
-        return JSON.stringify(formatTrace)
+      }
+      
+      return JSON.stringify(formatTrace)
     })
     // console.log(typeof logger.queue[0])
     
