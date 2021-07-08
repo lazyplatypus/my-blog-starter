@@ -67,7 +67,7 @@ const _processQueue = async () => {
       if (formatTrace.annotations[0].endpoint) {
         formatTrace.localEndpoint = {}
         formatTrace.localEndpoint.serviceName = formatTrace.annotations[0].endpoint.serviceName
-        formatTrace.gatsbySite = constants ? constants.SITE_NAME : 'gatsby-site'
+        formatTrace.gatsbySite = constants.SITE_NAME || 'gatsby-site';
         if (formatTrace.binaryAnnotations) {
           formatTrace.tags = {}
           for (let anno of formatTrace.binaryAnnotations) {
@@ -80,7 +80,6 @@ const _processQueue = async () => {
       
       return JSON.stringify(formatTrace)
     })
-    // console.log(typeof logger.queue[0])
     
     const postBody = `[${formattedQueue.join(',')}]`
     try {
