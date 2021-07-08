@@ -9,8 +9,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['My-Blog-Starter'],
-  /**
+   app_name: [constants.SITE_NAME || process.env.SITE_NAME || 'gatsby-app'],  /**
    * Your New Relic license key.
    */
   license_key: process.env.NEW_RELIC_LICENSE_KEY,
